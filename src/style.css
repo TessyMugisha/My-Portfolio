@@ -1,0 +1,14 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+:root {
+  --text-regular-mine: 180pt;
+  --text-regular-mine--font-weight: 400;
+}
+
+body {
+  /* Remove the background-image line for .mp4 */
+  /* background-image: url('./assets/images/Rainbow Gradient Pink and Purple Virtual Background.mp4'); */
+  background-color: #fff; /* Or any fallback color you want */
+}
