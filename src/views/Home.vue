@@ -164,53 +164,54 @@
 
       <!-- Links row -->
       <section aria-labelledby="links-title" class="mt-10">
-        <h2 id="links-title" class="text-2xl font-semibold text-center">Find me on the internet</h2>
-        <ul class="mt-4 flex justify-center gap-6">
-          <li>
-            <a href="https://www.linkedin.com/in/tessy-mugisha-5334ba173/" target="_blank" rel="noopener"
-               aria-label="Linkedin" title="Linkedin"
-               class="inline-flex items-center p-2 focus:outline-none focus-visible:ring-2 focus-visible:ring-blue-600">
-              <img :src="linkedin.png" alt="LinkedIn"
-                   class="h-6 w-6 opacity-80 hover:opacity-100 hover:scale-105 active:scale-95 transition" />
-            </a>
-          </li>
+  <h2 id="links-title" class="text-2xl font-semibold text-center">Find me on the internet</h2>
+  <ul class="mt-4 flex justify-center gap-6">
+    <li>
+      <a href="https://www.linkedin.com/in/tessy-mugisha-5334ba173/" target="_blank" rel="noopener"
+         aria-label="LinkedIn" title="LinkedIn"
+         class="inline-flex items-center p-2 focus:outline-none focus-visible:ring-2 focus-visible:ring-blue-600">
+        <img src="/logos/linkedin.png" alt="LinkedIn"
+             class="h-6 w-6 opacity-80 hover:opacity-100 hover:scale-105 active:scale-95 transition" />
+      </a>
+    </li>
 
-          <li>
-            <a href="https://github.com/tessymugisha" target="_blank" rel="noopener"
-               aria-label="GitHub" title="GitHub"
-               class="inline-flex items-center p-2 focus:outline-none focus-visible:ring-2 focus-visible:ring-neutral-900">
-              <img :src="github.png" alt="GitHub"
-                   class="h-6 w-6 opacity-80 hover:opacity-100 hover:scale-105 active:scale-95 transition" />
-            </a>
-          </li>
+    <li>
+      <a href="https://github.com/tessymugisha" target="_blank" rel="noopener"
+         aria-label="GitHub" title="GitHub"
+         class="inline-flex items-center p-2 focus:outline-none focus-visible:ring-2 focus-visible:ring-neutral-900">
+        <img src="/logos/github.png" alt="GitHub"
+             class="h-6 w-6 opacity-80 hover:opacity-100 hover:scale-105 active:scale-95 transition" />
+      </a>
+    </li>
 
-          <li>
-            <a href="https://medium.com/@mugishatessy" target="_blank" rel="noopener"
-               aria-label="Medium" title="Medium"
-               class="inline-flex items-center p-2 focus:outline-none focus-visible:ring-2 focus-visible:ring-neutral-900">
-              <img :src="medium.png" alt="Medium"
-                   class="h-6 w-6 opacity-80 hover:opacity-100 hover:scale-105 active:scale-95 transition" />
-            </a>
-          </li>
+    <li>
+      <a href="https://medium.com/@mugishatessy" target="_blank" rel="noopener"
+         aria-label="Medium" title="Medium"
+         class="inline-flex items-center p-2 focus:outline-none focus-visible:ring-2 focus-visible:ring-neutral-900">
+        <img src="/logos/medium.png" alt="Medium"
+             class="h-6 w-6 opacity-80 hover:opacity-100 hover:scale-105 active:scale-95 transition" />
+      </a>
+    </li>
 
-          <li>
-            <a href="https://www.youtube.com/@HeyTesssyy" target="_blank" rel="noopener"
-               aria-label="YouTube" title="YouTube"
-               class="inline-flex items-center p-2 focus:outline-none focus-visible:ring-2 focus-visible:ring-red-600">
-              <img :src="YouTube.png" alt="YouTube"
-                   class="h-6 w-6 opacity-80 hover:opacity-100 hover:scale-105 active:scale-95 transition" />
-            </a>
-          </li>
+    <li>
+      <a href="https://www.youtube.com/@HeyTesssyy" target="_blank" rel="noopener"
+         aria-label="YouTube" title="YouTube"
+         class="inline-flex items-center p-2 focus:outline-none focus-visible:ring-2 focus-visible:ring-red-600">
+        <img src="/logos/youtube.png" alt="YouTube"
+             class="h-6 w-6 opacity-80 hover:opacity-100 hover:scale-105 active:scale-95 transition" />
+      </a>
+    </li>
 
-          <li>
-            <a href="mailto:mugishatessy@gmail.com" aria-label="Email" title="Email"
-               class="inline-flex items-center p-2 focus:outline-none focus-visible:ring-2 focus-visible:ring-emerald-600">
-              <img :src="email.png" alt="Email"
-                   class="h-6 w-6 opacity-80 hover:opacity-100 hover:scale-105 active:scale-95 transition" />
-            </a>
-          </li>
-        </ul>
-      </section>
+    <li>
+      <a href="mailto:mugishatessy@gmail.com" aria-label="Email" title="Email"
+         class="inline-flex items-center p-2 focus:outline-none focus-visible:ring-2 focus-visible:ring-emerald-600">
+        <img src="/logos/email.png" alt="Email"
+             class="h-6 w-6 opacity-80 hover:opacity-100 hover:scale-105 active:scale-95 transition" />
+      </a>
+    </li>
+  </ul>
+</section>
+
 
       <!-- Footer -->
       <footer class="mt-14 mb-2 text-sm text-neutral-600">
@@ -263,13 +264,7 @@
 
 <script setup>
 import { ref, onMounted, onBeforeUnmount } from 'vue'
-import Certifications from '../views/Certifications.vue' 
 
-import logoLinkedIn from '../assets/logos/linkedin.png'
-import logoGitHub   from '../assets/logos/github.png'
-import logoMedium   from '../assets/logos/medium.png'
-import logoYouTube  from '../assets/logos/youtube.png'
-import logoEmail    from '../assets/logos/email.png'
 
 import shotSwiftUI from '../assets/shots/ipad_nav_fix.jpg'
 import shotCampusBuddy from '../assets/shots/campus_buddy.jpg'
