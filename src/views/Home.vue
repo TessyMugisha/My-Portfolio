@@ -170,7 +170,7 @@
             <a href="https://www.linkedin.com/in/tessy-mugisha-5334ba173/" target="_blank" rel="noopener"
                aria-label="Linkedin" title="Linkedin"
                class="inline-flex items-center p-2 focus:outline-none focus-visible:ring-2 focus-visible:ring-blue-600">
-              <img :src="logoLinkedIn" alt="LinkedIn"
+              <img :src="linkedin.png" alt="LinkedIn"
                    class="h-6 w-6 opacity-80 hover:opacity-100 hover:scale-105 active:scale-95 transition" />
             </a>
           </li>
@@ -179,7 +179,7 @@
             <a href="https://github.com/tessymugisha" target="_blank" rel="noopener"
                aria-label="GitHub" title="GitHub"
                class="inline-flex items-center p-2 focus:outline-none focus-visible:ring-2 focus-visible:ring-neutral-900">
-              <img :src="logoGitHub" alt="GitHub"
+              <img :src="github.png" alt="GitHub"
                    class="h-6 w-6 opacity-80 hover:opacity-100 hover:scale-105 active:scale-95 transition" />
             </a>
           </li>
@@ -188,7 +188,7 @@
             <a href="https://medium.com/@mugishatessy" target="_blank" rel="noopener"
                aria-label="Medium" title="Medium"
                class="inline-flex items-center p-2 focus:outline-none focus-visible:ring-2 focus-visible:ring-neutral-900">
-              <img :src="logoMedium" alt="Medium"
+              <img :src="medium.png" alt="Medium"
                    class="h-6 w-6 opacity-80 hover:opacity-100 hover:scale-105 active:scale-95 transition" />
             </a>
           </li>
@@ -197,7 +197,7 @@
             <a href="https://www.youtube.com/@HeyTesssyy" target="_blank" rel="noopener"
                aria-label="YouTube" title="YouTube"
                class="inline-flex items-center p-2 focus:outline-none focus-visible:ring-2 focus-visible:ring-red-600">
-              <img :src="logoYouTube" alt="YouTube"
+              <img :src="YouTube.png" alt="YouTube"
                    class="h-6 w-6 opacity-80 hover:opacity-100 hover:scale-105 active:scale-95 transition" />
             </a>
           </li>
@@ -205,7 +205,7 @@
           <li>
             <a href="mailto:mugishatessy@gmail.com" aria-label="Email" title="Email"
                class="inline-flex items-center p-2 focus:outline-none focus-visible:ring-2 focus-visible:ring-emerald-600">
-              <img :src="logoEmail" alt="Email"
+              <img :src="email.png" alt="Email"
                    class="h-6 w-6 opacity-80 hover:opacity-100 hover:scale-105 active:scale-95 transition" />
             </a>
           </li>
