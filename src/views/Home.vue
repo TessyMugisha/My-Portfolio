@@ -168,7 +168,7 @@
         <ul class="mt-4 flex justify-center gap-6">
           <li>
             <a href="https://www.linkedin.com/in/tessy-mugisha-5334ba173/" target="_blank" rel="noopener"
-               aria-label="LinkedIn" title="LinkedIn"
+               aria-label="Linkedin" title="Linkedin"
                class="inline-flex items-center p-2 focus:outline-none focus-visible:ring-2 focus-visible:ring-blue-600">
               <img :src="logoLinkedIn" alt="LinkedIn"
                    class="h-6 w-6 opacity-80 hover:opacity-100 hover:scale-105 active:scale-95 transition" />
