@@ -10,7 +10,7 @@
     <div class="flex flex-col">
       <div class="p-15">
         <div class="basis-full text-right text-[30pt] font-bold tracking-wide">
-          <RouterLink to="/">TM<span class="text-orange">*</span></RouterLink>
+          <RouterLink to="/">TM<span class="text-orange"></span></RouterLink>
         </div>
       </div>
       <div class="h-[7rem] md:h-[5rem]"></div>

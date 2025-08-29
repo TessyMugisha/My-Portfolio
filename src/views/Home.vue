@@ -1,35 +1,32 @@
-
 <template>
-  <div class="relative"> <!-- ✅ single root wrapper -->
+  <div class="relative"> 
 
-<!-- Background (soft neutrals, no white overlay) -->
-<div class="fixed inset-0 -z-10 overflow-hidden" aria-hidden="true">
-  <!-- Base gradient with a warm radial glow -->
-  <div
-    class="absolute inset-0"
-    style="
-      background:
-        radial-gradient(1100px 700px at 15% 10%, rgba(243, 221, 190, 0.45), transparent 60%),
-        linear-gradient(180deg, #f3e7d3 0%, #fff7e9 55%, #fffdf8 100%);
-    "
-  ></div>
+    <!-- Background (soft neutrals, no white overlay) -->
+    <div class="fixed inset-0 -z-10 overflow-hidden" aria-hidden="true">
+      <!-- Base gradient with a warm radial glow -->
+      <div
+        class="absolute inset-0"
+        style="
+          background:
+            radial-gradient(1100px 700px at 15% 10%, rgba(243, 221, 190, 0.45), transparent 60%),
+            linear-gradient(180deg, #f3e7d3 0%, #fff7e9 55%, #fffdf8 100%);
+        "
+      ></div>
 
-  <!-- Subtle animated wavy lines -->
-  <svg class="absolute inset-0 waves opacity-15" width="100%" height="100%" viewBox="0 0 1440 800" preserveAspectRatio="none">
-    <g class="wave-group">
-      <path d="M0,120 C180,80 360,160 540,120 C720,80 900,160 1080,120 C1260,80 1440,140 1440,140"
-            fill="none" stroke="#a49786" stroke-width="0.6"/>
-      <path d="M0,260 C180,220 360,300 540,260 C720,220 900,300 1080,260 C1260,220 1440,280 1440,280"
-            fill="none" stroke="#a49786" stroke-width="0.5"/>
-      <path d="M0,400 C180,360 360,440 540,400 C720,360 900,440 1080,400 C1260,360 1440,420 1440,420"
-            fill="none" stroke="#a49786" stroke-width="0.5"/>
-      <path d="M0,540 C180,500 360,580 540,540 C720,500 900,580 1080,540 C1260,500 1440,560 1440,560"
-            fill="none" stroke="#a49786" stroke-width="0.4"/>
-    </g>
-  </svg>
-</div>
-
-
+      <!-- Subtle animated wavy lines -->
+      <svg class="absolute inset-0 waves opacity-15" width="100%" height="100%" viewBox="0 0 1440 800" preserveAspectRatio="none">
+        <g class="wave-group">
+          <path d="M0,120 C180,80 360,160 540,120 C720,80 900,160 1080,120 C1260,80 1440,140 1440,140"
+                fill="none" stroke="#a49786" stroke-width="0.6"/>
+          <path d="M0,260 C180,220 360,300 540,260 C720,220 900,300 1080,260 C1260,220 1440,280 1440,280"
+                fill="none" stroke="#a49786" stroke-width="0.5"/>
+          <path d="M0,400 C180,360 360,440 540,400 C720,360 900,440 1080,400 C1260,360 1440,420 1440,420"
+                fill="none" stroke="#a49786" stroke-width="0.5"/>
+          <path d="M0,540 C180,500 360,580 540,540 C720,500 900,580 1080,540 C1260,500 1440,560 1440,560"
+                fill="none" stroke="#a49786" stroke-width="0.4"/>
+        </g>
+      </svg>
+    </div>
 
     <!-- Main content -->
     <main class="relative z-10 mx-auto max-w-6xl px-6 py-10 text-neutral-900">
@@ -96,127 +93,124 @@
         </nav>
       </section>
 
-<!-- Projects -->
-<section id="projects" class="mt-12">
-  <h2 class="text-xl font-semibold">Selected Projects</h2>
+      <!-- Projects -->
+      <section id="projects" class="mt-12">
+        <h2 class="text-xl font-semibold">Selected Projects</h2>
 
-  <div class="mt-5 grid gap-6 sm:grid-cols-2 lg:grid-cols-3">
-    <!-- project cards -->
-    <article
-      v-for="p in projects"
-      :key="p.id"
-      class="group relative rounded-xl overflow-hidden bg-white/90 ring-1 ring-neutral-200 transition hover:-translate-y-1 hover:shadow-md hover:ring-neutral-300"
-    >
-      <img :src="p.image" :alt="p.title + ' screenshot'" class="w-full h-44 object-cover" />
+        <div class="mt-5 grid gap-6 sm:grid-cols-2 lg:grid-cols-3">
+          <!-- project cards -->
+          <article
+            v-for="p in projects"
+            :key="p.id"
+            class="group relative rounded-xl overflow-hidden bg-white/90 ring-1 ring-neutral-200 transition hover:-translate-y-1 hover:shadow-md hover:ring-neutral-300"
+          >
+            <img :src="p.image" :alt="p.title + ' screenshot'" class="w-full h-44 object-cover" />
 
-      <div class="pointer-events-none absolute inset-0 bg-black/0 group-hover:bg-black/10 transition"></div>
-      <button
-        @click="openProject(p)"
-        class="absolute right-3 top-3 opacity-0 group-hover:opacity-100 transition pointer-events-auto
-               rounded-lg bg-white/90 px-3 py-1.5 text-sm font-medium ring-1 ring-neutral-300 hover:ring-neutral-400"
-        aria-label="Quick view"
-      >
-        Quick view
-      </button>
+            <div class="pointer-events-none absolute inset-0 bg-black/0 group-hover:bg-black/10 transition"></div>
+            <button
+              @click="openProject(p)"
+              class="absolute right-3 top-3 opacity-0 group-hover:opacity-100 transition pointer-events-auto
+                     rounded-lg bg-white/90 px-3 py-1.5 text-sm font-medium ring-1 ring-neutral-300 hover:ring-neutral-400"
+              aria-label="Quick view"
+            >
+              Quick view
+            </button>
 
-      <div class="p-4">
-        <h3 class="font-medium tracking-tight">{{ p.title }}</h3>
-        <p class="text-sm text-neutral-700 mt-1 line-clamp-2">{{ p.subtitle }}</p>
-        <div class="mt-3 flex flex-wrap gap-2 text-xs text-neutral-600">
-          <span
-            v-for="t in p.tags"
-            :key="t"
-            class="rounded-md bg-neutral-100 px-2 py-1 ring-1 ring-neutral-200"
-          >{{ t }}</span>
+            <div class="p-4">
+              <h3 class="font-medium tracking-tight">{{ p.title }}</h3>
+              <p class="text-sm text-neutral-700 mt-1 line-clamp-2">{{ p.subtitle }}</p>
+              <div class="mt-3 flex flex-wrap gap-2 text-xs text-neutral-600">
+                <span
+                  v-for="t in p.tags"
+                  :key="t"
+                  class="rounded-md bg-neutral-100 px-2 py-1 ring-1 ring-neutral-200"
+                >{{ t }}</span>
+              </div>
+            </div>
+          </article>
+
+          <!-- 🚧 Coming soon card -->
+          <article
+            class="flex h-full min-h-44 flex-col items-center justify-center rounded-xl
+                   border-2 border-dashed border-neutral-300 bg-white/70 p-6 text-center"
+          >
+            <p class="text-sm text-neutral-700 italic">
+              🚧 Coming soon: 2+ new projects
+            </p>
+          </article>
         </div>
-      </div>
-    </article>
+      </section>
 
-    <!-- 🚧 Coming soon card -->
-    <article
-      class="flex h-full min-h-44 flex-col items-center justify-center rounded-xl
-             border-2 border-dashed border-neutral-300 bg-white/70 p-6 text-center"
-    >
-      <p class="text-sm text-neutral-700 italic">
-        🚧 Coming soon: 2+ new projects
-      </p>
-    </article>
-  </div>
-</section>
-
+      <!-- Certifications (component) -->
+      <Certifications :items="certs" />
 
       <!-- Writing -->
       <section id="writing" class="mt-12">
         <h2 class="text-xl font-semibold">Writing & Updates</h2>
         <p class="text-neutral-700 mt-2">Weekly progress logs + reflections on learning and building.</p>
         <ul class="mt-4 space-y-3">
-<li>
-  <a href="https://medium.com/@mugishatessy" target="_blank" rel="noopener"
-     class="group block rounded-lg px-3 py-2 bg-white/80 ring-1 ring-neutral-200 hover:bg-white hover:ring-neutral-300 transition
-            focus:outline-none focus-visible:ring-2 focus-visible:ring-neutral-900">
-    <span class="font-medium">Progress: Entry One</span>
-    <span class="block text-sm text-neutral-600 group-hover:underline">
-      A Technologist’s Progress and Learning
-    </span>
-  </a>
-</li>
-
+          <li>
+            <a href="https://medium.com/@mugishatessy" target="_blank" rel="noopener"
+               class="group block rounded-lg px-3 py-2 bg-white/80 ring-1 ring-neutral-200 hover:bg-white hover:ring-neutral-300 transition
+                      focus:outline-none focus-visible:ring-2 focus-visible:ring-neutral-900">
+              <span class="font-medium">Progress: Entry One</span>
+              <span class="block text-sm text-neutral-600 group-hover:underline">
+                A Technologist’s Progress and Learning
+              </span>
+            </a>
+          </li>
         </ul>
       </section>
 
-      
-<!-- Links row -->
-<section aria-labelledby="links-title" class="mt-10">
-  <h2 id="links-title" class="text-2xl font-semibold text-center">Find me on the internet</h2>
-  <ul class="mt-4 flex justify-center gap-6">
-    <li>
-      <a href="https://www.linkedin.com/in/tessy-mugisha-5334ba173/" target="_blank" rel="noopener"
-         aria-label="LinkedIn" title="LinkedIn"
-         class="inline-flex items-center p-2 focus:outline-none focus-visible:ring-2 focus-visible:ring-blue-600">
-        <img :src="logoLinkedIn" alt="LinkedIn"
-             class="h-6 w-6 opacity-80 hover:opacity-100 hover:scale-105 active:scale-95 transition" />
-      </a>
-    </li>
+      <!-- Links row -->
+      <section aria-labelledby="links-title" class="mt-10">
+        <h2 id="links-title" class="text-2xl font-semibold text-center">Find me on the internet</h2>
+        <ul class="mt-4 flex justify-center gap-6">
+          <li>
+            <a href="https://www.linkedin.com/in/tessy-mugisha-5334ba173/" target="_blank" rel="noopener"
+               aria-label="LinkedIn" title="LinkedIn"
+               class="inline-flex items-center p-2 focus:outline-none focus-visible:ring-2 focus-visible:ring-blue-600">
+              <img :src="logoLinkedIn" alt="LinkedIn"
+                   class="h-6 w-6 opacity-80 hover:opacity-100 hover:scale-105 active:scale-95 transition" />
+            </a>
+          </li>
 
-    <li>
-      <a href="https://github.com/tessymugisha" target="_blank" rel="noopener"
-         aria-label="GitHub" title="GitHub"
-         class="inline-flex items-center p-2 focus:outline-none focus-visible:ring-2 focus-visible:ring-neutral-900">
-        <img :src="logoGitHub" alt="GitHub"
-             class="h-6 w-6 opacity-80 hover:opacity-100 hover:scale-105 active:scale-95 transition" />
-      </a>
-    </li>
+          <li>
+            <a href="https://github.com/tessymugisha" target="_blank" rel="noopener"
+               aria-label="GitHub" title="GitHub"
+               class="inline-flex items-center p-2 focus:outline-none focus-visible:ring-2 focus-visible:ring-neutral-900">
+              <img :src="logoGitHub" alt="GitHub"
+                   class="h-6 w-6 opacity-80 hover:opacity-100 hover:scale-105 active:scale-95 transition" />
+            </a>
+          </li>
 
-<li>
-  <a href="https://medium.com/@mugishatessy" target="_blank" rel="noopener"
-     aria-label="Medium" title="Medium"
-     class="inline-flex items-center p-2 focus:outline-none focus-visible:ring-2 focus-visible:ring-neutral-900">
-    <img :src="logoMedium" alt="Medium"
-         class="h-6 w-6 opacity-80 hover:opacity-100 hover:scale-105 active:scale-95 transition" />
-  </a>
-</li>
+          <li>
+            <a href="https://medium.com/@mugishatessy" target="_blank" rel="noopener"
+               aria-label="Medium" title="Medium"
+               class="inline-flex items-center p-2 focus:outline-none focus-visible:ring-2 focus-visible:ring-neutral-900">
+              <img :src="logoMedium" alt="Medium"
+                   class="h-6 w-6 opacity-80 hover:opacity-100 hover:scale-105 active:scale-95 transition" />
+            </a>
+          </li>
 
+          <li>
+            <a href="https://www.youtube.com/@HeyTesssyy" target="_blank" rel="noopener"
+               aria-label="YouTube" title="YouTube"
+               class="inline-flex items-center p-2 focus:outline-none focus-visible:ring-2 focus-visible:ring-red-600">
+              <img :src="logoYouTube" alt="YouTube"
+                   class="h-6 w-6 opacity-80 hover:opacity-100 hover:scale-105 active:scale-95 transition" />
+            </a>
+          </li>
 
-    <li>
-      <a href="https://www.youtube.com/@HeyTesssyy" target="_blank" rel="noopener"
-         aria-label="YouTube" title="YouTube"
-         class="inline-flex items-center p-2 focus:outline-none focus-visible:ring-2 focus-visible:ring-red-600">
-        <img :src="logoYouTube" alt="YouTube"
-             class="h-6 w-6 opacity-80 hover:opacity-100 hover:scale-105 active:scale-95 transition" />
-      </a>
-    </li>
-
-    <li>
-      <a href="mailto:mugishatessy@gmail.com" aria-label="Email" title="Email"
-         class="inline-flex items-center p-2 focus:outline-none focus-visible:ring-2 focus-visible:ring-emerald-600">
-        <img :src="logoEmail" alt="Email"
-             class="h-6 w-6 opacity-80 hover:opacity-100 hover:scale-105 active:scale-95 transition" />
-      </a>
-    </li>
-  </ul>
-</section>
-
-
+          <li>
+            <a href="mailto:mugishatessy@gmail.com" aria-label="Email" title="Email"
+               class="inline-flex items-center p-2 focus:outline-none focus-visible:ring-2 focus-visible:ring-emerald-600">
+              <img :src="logoEmail" alt="Email"
+                   class="h-6 w-6 opacity-80 hover:opacity-100 hover:scale-105 active:scale-95 transition" />
+            </a>
+          </li>
+        </ul>
+      </section>
 
       <!-- Footer -->
       <footer class="mt-14 mb-2 text-sm text-neutral-600">
@@ -269,6 +263,7 @@
 
 <script setup>
 import { ref, onMounted, onBeforeUnmount } from 'vue'
+import Certifications from '../views/Certifications.vue' 
 
 import logoLinkedIn from '../assets/logos/linkedin.png'
 import logoGitHub   from '../assets/logos/github.png'
@@ -340,6 +335,58 @@ const projects = ref([
   }
 ])
 
+/* ===== Certifications data ===== */
+const certs = ref([
+  {
+    id: 'google-pm-foundations',
+    title: 'Foundations of Project Management',
+    issuer: 'Google (Coursera)',
+    status: 'Completed',
+    blurb: 'Explored PM fundamentals to evaluate if PM is a fit for me.',
+    link: '', 
+    quick: true     
+  },
+  {
+    id: 'att-tech-academy',
+    title: 'AT&T Technology Academy',
+    issuer: 'AT&T',
+    status: 'Completed',
+    blurb: 'Broad exposure to technology roles (SE, PM, data) to get my feet wet.',
+    link: ''
+  },
+  {
+    id: 'asana-project-work',
+    title: 'Asana — Certified Project Work',
+    issuer: 'Asana',
+    status: 'Completed',
+    blurb: 'Learned a new tool to manage tasks, timelines, and cross-team collaboration.',
+    link: ''
+  },
+  {
+    id: 'ncl-spring-2024',
+    title: 'National Cyber League — Spring 2024 (Individual Game)',
+    issuer: 'NCL',
+    status: 'Completed',
+    blurb: 'Hands-on intro to cybersecurity challenges (crypto, forensics, OSINT).',
+    link: ''
+  },
+  {
+    id: 'ibm-skillsbuild-ai',
+    title: 'IBM SkillsBuild — AI Literacy',
+    issuer: 'IBM',
+    status: 'In Progress',
+    blurb: 'Building practical AI literacy and hands-on fundamentals to support a future AI master’s.',
+    link: ''
+  },
+  {
+    id: 'oracle-university',
+    title: 'Oracle University — Learning Path',
+    issuer: 'Oracle',
+    status: 'In Progress',
+    blurb: 'Exploring Oracle ecosystem topics; deciding which path to pursue next.',
+    link: ''
+  }
+])
 
 const activeProject = ref(null)
 const openProject = (p) => { activeProject.value = p }
