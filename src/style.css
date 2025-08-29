@@ -2,13 +2,29 @@
 @tailwind components;
 @tailwind utilities;
 
+/* Optional variables */
 :root {
   --text-regular-mine: 180pt;
   --text-regular-mine--font-weight: 400;
 }
 
-body {
-  /* Remove the background-image line for .mp4 */
-  /* background-image: url('./assets/images/Rainbow Gradient Pink and Purple Virtual Background.mp4'); */
-  background-color: #fff; /* Or any fallback color you want */
+/* Make sure nothing forces a white page background */
+html, body, #app {
+  background: transparent;
+}
+
+/* Subtle horizontal drift for the SVG waves */
+.waves .wave-group {
+  transform: translateX(0);
+  animation: drift 28s linear infinite;
+}
+
+@keyframes drift {
+  from { transform: translateX(0); }
+  to   { transform: translateX(-180px); }
+}
+
+/* Respect reduced motion preferences */
+@media (prefers-reduced-motion: reduce) {
+  .waves .wave-group { animation: none; }
 }
