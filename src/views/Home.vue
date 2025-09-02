@@ -1,8 +1,11 @@
 <template>
   <div class="relative">
-    <!-- Background (soft neutrals, no white overlay) -->
+
+    <!-- Top scroll progress -->
+    <div class="fixed left-0 top-0 z-[60] h-1 bg-emerald-600 transition-[width]" :style="{ width: scrollProgress + '%' }"></div>
+
+    <!-- Background -->
     <div class="fixed inset-0 -z-10 overflow-hidden" aria-hidden="true">
-      <!-- Base gradient with a warm radial glow -->
       <div
         class="absolute inset-0"
         style="
@@ -12,7 +15,7 @@
         "
       ></div>
 
-      <!-- Subtle animated wavy lines -->
+      <!-- Animated wavy lines (subtle) -->
       <svg class="absolute inset-0 waves opacity-15" width="100%" height="100%" viewBox="0 0 1440 800" preserveAspectRatio="none">
         <g class="wave-group">
           <path d="M0,120 C180,80 360,160 540,120 C720,80 900,160 1080,120 C1260,80 1440,140 1440,140"
@@ -28,19 +31,32 @@
     </div>
 
     <!-- Main content -->
-    <main class="relative z-10 mx-auto max-w-6xl px-6 py-10 text-neutral-900">
+    <main id="main" class="relative z-10 mx-auto max-w-6xl px-6 py-10 text-neutral-900" :aria-hidden="!!activeProject">
       <!-- Header -->
-      <header class="flex flex-wrap items-center gap-5">
-      <img :src="portraitImg" alt="Portrait of Tessy" class="w-16 h-16 rounded-full object-cover ring-2 ring-white/80" />
-
+      <header class="flex flex-wrap items-center gap-5 will-reveal">
+        <img
+          :src="portraitImg"
+          alt="Portrait of Tessy"
+          class="w-16 h-16 rounded-full object-cover ring-2 ring-white/80"
+          loading="eager" decoding="async" fetchpriority="high"
+        />
         <div>
           <h1 class="text-3xl font-bold tracking-tight">Tessy Pauline Mugisha</h1>
           <p class="text-lg italic text-green-700">software engineer</p>
         </div>
+        <div class="ms-auto flex items-center gap-2">
+          <button
+            @click="copyEmail"
+            class="rounded-lg px-3 py-1.5 text-sm ring-1 ring-neutral-300 bg-white/80 hover:bg-white hover:-translate-y-0.5 transition"
+            :aria-label="copied ? 'Email copied' : 'Copy email to clipboard'">
+            <span v-if="!copied">Copy Email</span>
+            <span v-else class="text-emerald-700">Copied!</span>
+          </button>
+        </div>
       </header>
 
       <!-- Hero -->
-      <section class="mt-8 space-y-3 text-neutral-900">
+      <section class="mt-8 space-y-3 text-neutral-900 will-reveal">
         <p class="text-xl">
           Senior @ <span class="text-blue-700 font-semibold">Oklahoma Christian University</span> (CS + AI) • Engineer-in-training
         </p>
@@ -91,17 +107,40 @@
 
       <!-- Projects -->
       <section id="projects" class="mt-12">
-        <h2 class="text-xl font-semibold">Selected Projects</h2>
+        <h2 class="text-xl font-semibold will-reveal">Selected Projects</h2>
+
+        <!-- Filters -->
+        <div class="mt-4 flex flex-wrap items-center gap-3 will-reveal" role="region" aria-label="Project filters">
+          <input
+            v-model="query"
+            type="search"
+            placeholder="Search projects..."
+            class="w-full sm:w-72 rounded-lg border border-neutral-300 bg-white/90 px-3 py-2 text-sm focus:outline-none focus:ring-2 focus:ring-neutral-800"
+            aria-label="Search projects by title or subtitle"
+          />
+          <div class="flex flex-wrap gap-2" role="listbox" aria-label="Filter by tag">
+            <button
+              v-for="t in ['All', ...allTags]"
+              :key="t"
+              @click="activeTag = t"
+              :aria-selected="activeTag === t"
+              class="rounded-md px-3 py-1.5 text-sm ring-1 transition
+                     ring-neutral-300 hover:ring-neutral-400"
+              :class="activeTag === t ? 'bg-neutral-900 text-white' : 'bg-white/90'"
+            >{{ t }}</button>
+          </div>
+          <span class="text-sm text-neutral-600" aria-live="polite">{{ filteredProjects.length }} result(s)</span>
+        </div>
 
         <div class="mt-5 grid gap-6 sm:grid-cols-2 lg:grid-cols-3">
           <!-- project cards -->
           <article
-            v-for="p in projects"
+            v-for="p in filteredProjects"
             :key="p.id"
-            class="group relative rounded-xl overflow-hidden bg-white/90 ring-1 ring-neutral-200 transition hover:-translate-y-1 hover:shadow-md hover:ring-neutral-300"
+            class="will-reveal group relative rounded-xl overflow-hidden bg-white/90 ring-1 ring-neutral-200 transition hover:-translate-y-1 hover:shadow-md hover:ring-neutral-300"
           >
-            <img :src="p.image" :alt="p.title + ' screenshot'" class="w-full h-44 object-cover" />
-
+            <img :src="p.image" :alt="p.title + ' screenshot'" class="w-full h-44 object-cover"
+                 loading="lazy" decoding="async" />
             <div class="pointer-events-none absolute inset-0 bg-black/0 group-hover:bg-black/10 transition"></div>
             <button
               @click="openProject(p)"
@@ -116,18 +155,19 @@
               <h3 class="font-medium tracking-tight">{{ p.title }}</h3>
               <p class="text-sm text-neutral-700 mt-1 line-clamp-2">{{ p.subtitle }}</p>
               <div class="mt-3 flex flex-wrap gap-2 text-xs text-neutral-600">
-                <span
+                <button
                   v-for="t in p.tags"
                   :key="t"
-                  class="rounded-md bg-neutral-100 px-2 py-1 ring-1 ring-neutral-200"
-                >{{ t }}</span>
+                  class="rounded-md bg-neutral-100 px-2 py-1 ring-1 ring-neutral-200 hover:bg-neutral-200"
+                  @click="activeTag = t"
+                >{{ t }}</button>
               </div>
             </div>
           </article>
 
           <!-- 🚧 Coming soon card -->
           <article
-            class="flex h-full min-h-44 flex-col items-center justify-center rounded-xl
+            class="will-reveal flex h-full min-h-44 flex-col items-center justify-center rounded-xl
                    border-2 border-dashed border-neutral-300 bg-white/70 p-6 text-center"
           >
             <p class="text-sm text-neutral-700 italic">
@@ -138,10 +178,10 @@
       </section>
 
       <!-- Certifications (component) -->
-      <Certifications :items="certs" />
+      <Certifications class="will-reveal" :items="certs" />
 
       <!-- Writing -->
-      <section id="writing" class="mt-12">
+      <section id="writing" class="mt-12 will-reveal">
         <h2 class="text-xl font-semibold">Writing & Updates</h2>
         <p class="text-neutral-700 mt-2">Weekly progress logs + reflections on learning and building.</p>
         <ul class="mt-4 space-y-3">
@@ -210,7 +250,7 @@
 
 
       <!-- Footer -->
-      <footer class="mt-14 mb-2 text-sm text-neutral-600">
+      <footer class="mt-14 mb-2 text-sm text-neutral-600 will-reveal">
         <div class="text-center">
           <p class="italic text-md text-neutral-700">“Seek first the kingdom of God and all will be added to you” — Mt 6:33</p>
           <p class="italic text-md text-neutral-600 mt-1">Build with Purpose</p>
@@ -219,17 +259,26 @@
       </footer>
     </main>
 
-    <!-- Project Modal -->
-    <div v-if="activeProject" class="fixed inset-0 z-50 flex items-center justify-center p-4" role="dialog" aria-modal="true">
+    <!-- Back to top -->
+    <button
+      v-show="showToTop"
+      @click="scrollToTop"
+      class="fixed bottom-5 right-5 z-50 rounded-full bg-neutral-900 text-white p-3 shadow-lg ring-1 ring-black/10 hover:-translate-y-0.5 transition"
+      aria-label="Back to top">
+      ↑
+    </button>
+
+    <!-- Project Modal (focus trapped) -->
+    <div v-if="activeProject" class="fixed inset-0 z-50 flex items-center justify-center p-4" role="dialog" aria-modal="true" :aria-label="activeProject.title">
       <div class="absolute inset-0 bg-black/40 backdrop-blur-md" @click="closeProject()" aria-hidden="true"></div>
-      <div class="relative w-full max-w-2xl rounded-2xl bg-white/95 shadow-xl ring-1 ring-neutral-200">
+      <div ref="modalBox" class="relative w-full max-w-2xl rounded-2xl bg-white/95 shadow-xl ring-1 ring-neutral-200 focus:outline-none" tabindex="-1">
         <div class="aspect-[16/9] w-full overflow-hidden rounded-t-2xl">
           <img :src="activeProject.image" :alt="activeProject.title" class="h-full w-full object-cover" />
         </div>
         <div class="p-5">
           <div class="flex items-start justify-between gap-4">
             <h3 class="text-lg font-semibold tracking-tight">{{ activeProject.title }}</h3>
-            <button @click="closeProject()"
+            <button ref="closeBtn" @click="closeProject()"
                     class="rounded-md px-2 py-1 text-sm ring-1 ring-neutral-300 hover:ring-neutral-400"
                     aria-label="Close">Close</button>
           </div>
@@ -254,6 +303,7 @@
         </div>
       </div>
     </div>
+
   </div>
 </template>
 
@@ -272,6 +322,7 @@ import shotIntake from '../assets/shots/intake_ai.webp'
 
 
 
+// ---- Data ----
 const projects = ref([
   {
     id: 'swiftui-nav-fix',
@@ -333,81 +384,127 @@ const projects = ref([
 
 /* ===== Certifications data ===== */
 const certs = ref([
-  {
-    id: 'google-pm-foundations',
-    title: 'Foundations of Project Management',
-    issuer: 'Google (Coursera)',
-    status: 'Completed',
-    blurb: 'Explored PM fundamentals to evaluate if PM is a fit for me.',
-    link: '',
-    quick: true
-  },
-  {
-    id: 'att-tech-academy',
-    title: 'AT&T Technology Academy',
-    issuer: 'AT&T',
-    status: 'Completed',
-    blurb: 'Broad exposure to technology roles (SE, PM, data) to get my feet wet.',
-    link: ''
-  },
-  {
-    id: 'asana-project-work',
-    title: 'Asana — Certified Project Work',
-    issuer: 'Asana',
-    status: 'Completed',
-    blurb: 'Learned a new tool to manage tasks, timelines, and cross-team collaboration.',
-    link: ''
-  },
-  {
-    id: 'ncl-spring-2024',
-    title: 'National Cyber League — Spring 2024 (Individual Game)',
-    issuer: 'NCL',
-    status: 'Completed',
-    blurb: 'Hands-on intro to cybersecurity challenges (crypto, forensics, OSINT).',
-    link: ''
-  },
-  {
-    id: 'ibm-skillsbuild-ai',
-    title: 'IBM SkillsBuild — AI Literacy',
-    issuer: 'IBM',
-    status: 'In Progress',
-    blurb: 'Building practical AI literacy and hands-on fundamentals to support a future AI master’s.',
-    link: ''
-  },
-  {
-    id: 'oracle-university',
-    title: 'Oracle University — Learning Path',
-    issuer: 'Oracle',
-    status: 'In Progress',
-    blurb: 'Exploring Oracle ecosystem topics; deciding which path to pursue next.',
-    link: ''
-  }
+  { id: 'google-pm-foundations', title: 'Foundations of Project Management', issuer: 'Google (Coursera)', status: 'Completed', blurb: 'Explored PM fundamentals to evaluate if PM is a fit for me.', link: '', quick: true },
+  { id: 'att-tech-academy', title: 'AT&T Technology Academy', issuer: 'AT&T', status: 'Completed', blurb: 'Broad exposure to technology roles (SE, PM, data) to get my feet wet.', link: '' },
+  { id: 'asana-project-work', title: 'Asana — Certified Project Work', issuer: 'Asana', status: 'Completed', blurb: 'Learned a new tool to manage tasks, timelines, and cross-team collaboration.', link: '' },
+  { id: 'ncl-spring-2024', title: 'National Cyber League — Spring 2024 (Individual Game)', issuer: 'NCL', status: 'Completed', blurb: 'Hands-on intro to cybersecurity challenges (crypto, forensics, OSINT).', link: '' },
+  { id: 'ibm-skillsbuild-ai', title: 'IBM SkillsBuild — AI Literacy', issuer: 'IBM', status: 'In Progress', blurb: 'Building practical AI literacy and hands-on fundamentals to support a future AI master’s.', link: '' },
+  { id: 'oracle-university', title: 'Oracle University — Learning Path', issuer: 'Oracle', status: 'In Progress', blurb: 'Exploring Oracle ecosystem topics; deciding which path to pursue next.', link: '' }
 ])
 
+// ---- Interactivity & UX helpers ----
 const activeProject = ref(null)
-const openProject = (p) => { activeProject.value = p }
-const closeProject = () => { activeProject.value = null }
+const modalBox = ref(null)
+const closeBtn = ref(null)
+const previousActiveEl = ref(null)
 
-/* Medium handler (optional helper) */
-const MEDIUM_URL = 'https://medium.com/@mugishatessy'
-const goToMedium = () => {
-  const writingSection = document.getElementById('writing')
-  if (writingSection) {
-    writingSection.scrollIntoView({ behavior: 'smooth' })
-    setTimeout(() => window.open(MEDIUM_URL, '_blank'), 800)
-  } else {
-    window.open(MEDIUM_URL, '_blank')
+const query = ref('')
+const activeTag = ref('All')
+const allTags = computed(() => {
+  const s = new Set()
+  projects.value.forEach(p => p.tags.forEach(t => s.add(t)))
+  return Array.from(s).sort()
+})
+const filteredProjects = computed(() => {
+  const q = query.value.trim().toLowerCase()
+  return projects.value.filter(p => {
+    const byTag = (activeTag.value === 'All') || p.tags.includes(activeTag.value)
+    if (!q) return byTag
+    const hay = (p.title + ' ' + p.subtitle).toLowerCase()
+    return byTag && hay.includes(q)
+  })
+})
+
+const scrollProgress = ref(0)
+const showToTop = ref(false)
+const copied = ref(false)
+
+const onScroll = () => {
+  const scrolled = window.scrollY
+  const height = document.documentElement.scrollHeight - window.innerHeight
+  scrollProgress.value = Math.min(100, Math.max(0, (scrolled / height) * 100))
+  showToTop.value = scrolled > 500
+}
+const scrollToTop = () => window.scrollTo({ top: 0, behavior: 'smooth' })
+
+// Section reveals
+let io
+const installReveal = () => {
+  const nodes = document.querySelectorAll('.will-reveal')
+  io = new IntersectionObserver((entries) => {
+    entries.forEach(e => {
+      if (e.isIntersecting) {
+        e.target.classList.add('reveal-in')
+        io.unobserve(e.target)
+      }
+    })
+  }, { rootMargin: '0px 0px -10% 0px', threshold: 0.1 })
+  nodes.forEach(n => io.observe(n))
+}
+
+// Modal open/close + focus trap
+const openProject = async (p) => {
+  previousActiveEl.value = document.activeElement
+  activeProject.value = p
+  await nextTick()
+  modalBox.value?.focus()
+  closeBtn.value?.focus()
+  document.addEventListener('keydown', onKey)
+}
+const closeProject = () => {
+  activeProject.value = null
+  document.removeEventListener('keydown', onKey)
+  previousActiveEl.value?.focus?.()
+}
+const onKey = (e) => {
+  if (e.key === 'Escape') return closeProject()
+  if (e.key === 'Tab' && modalBox.value) {
+    const focusables = modalBox.value.querySelectorAll('a,button,input,select,textarea,[tabindex]:not([tabindex="-1"])')
+    if (!focusables.length) return
+    const first = focusables[0], last = focusables[focusables.length - 1]
+    if (e.shiftKey && document.activeElement === first) { e.preventDefault(); last.focus() }
+    else if (!e.shiftKey && document.activeElement === last) { e.preventDefault(); first.focus() }
   }
 }
 
-/* Close modal with Esc */
-const onKey = (e) => { if (e.key === 'Escape') closeProject() }
-onMounted(() => window.addEventListener('keydown', onKey))
-onBeforeUnmount(() => window.removeEventListener('keydown', onKey))
+const copyEmail = async () => {
+  try {
+    await navigator.clipboard.writeText('mugishatessy@gmail.com')
+    copied.value = true
+    setTimeout(() => copied.value = false, 1500)
+  } catch {}
+}
+
+onMounted(() => {
+  window.addEventListener('scroll', onScroll, { passive: true })
+  installReveal()
+})
+onBeforeUnmount(() => {
+  window.removeEventListener('scroll', onScroll)
+  io?.disconnect()
+})
 </script>
 
 <style>
+/* Motion: subtle, but disabled for reduced-motion users */
+.will-reveal { opacity: 0; transform: translateY(10px); }
+.reveal-in { opacity: 1; transform: none; transition: opacity .5s ease, transform .5s ease; }
+
+.waves path {
+  stroke-dasharray: 6 10;
+  animation: waveMove 16s linear infinite;
+}
+.waves path:nth-child(2) { animation-duration: 18s; opacity: .85; }
+.waves path:nth-child(3) { animation-duration: 20s; opacity: .7; }
+.waves path:nth-child(4) { animation-duration: 22s; opacity: .6; }
+
+@keyframes waveMove {
+  from { transform: translateX(0); }
+  to   { transform: translateX(-30px); }
+}
+
 @media (prefers-reduced-motion: reduce) {
   * { transition: none !important; animation-duration: 0.001ms !important; animation-iteration-count: 1 !important; }
+  .will-reveal { opacity: 1 !important; transform: none !important; }
 }
 </style>
