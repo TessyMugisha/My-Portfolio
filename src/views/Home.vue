@@ -1,6 +1,5 @@
 <template>
-  <div class="relative"> 
-
+  <div class="relative">
     <!-- Background (soft neutrals, no white overlay) -->
     <div class="fixed inset-0 -z-10 overflow-hidden" aria-hidden="true">
       <!-- Base gradient with a warm radial glow -->
@@ -164,54 +163,53 @@
 
       <!-- Links row -->
       <section aria-labelledby="links-title" class="mt-10">
-  <h2 id="links-title" class="text-2xl font-semibold text-center">Find me on the internet</h2>
-  <ul class="mt-4 flex justify-center gap-6">
-    <li>
-      <a href="https://www.linkedin.com/in/tessy-mugisha-5334ba173/" target="_blank" rel="noopener"
-         aria-label="LinkedIn" title="LinkedIn"
-         class="inline-flex items-center p-2 focus:outline-none focus-visible:ring-2 focus-visible:ring-blue-600">
-        <img src="/logos/linkedin.png" alt="LinkedIn"
-             class="h-6 w-6 opacity-80 hover:opacity-100 hover:scale-105 active:scale-95 transition" />
-      </a>
-    </li>
+        <h2 id="links-title" class="text-2xl font-semibold text-center">Find me on the internet</h2>
+        <ul class="mt-4 flex justify-center gap-6">
+          <li>
+            <a href="https://www.linkedin.com/in/tessy-mugisha-5334ba173/" target="_blank" rel="noopener"
+               aria-label="LinkedIn" title="LinkedIn"
+               class="inline-flex items-center p-2 focus:outline-none focus-visible:ring-2 focus-visible:ring-blue-600">
+              <img :src="linkedinLogo" alt="LinkedIn"
+                   class="h-6 w-6 opacity-80 hover:opacity-100 hover:scale-105 active:scale-95 transition" />
+            </a>
+          </li>
 
-    <li>
-      <a href="https://github.com/tessymugisha" target="_blank" rel="noopener"
-         aria-label="GitHub" title="GitHub"
-         class="inline-flex items-center p-2 focus:outline-none focus-visible:ring-2 focus-visible:ring-neutral-900">
-        <img src="/logos/github.png" alt="GitHub"
-             class="h-6 w-6 opacity-80 hover:opacity-100 hover:scale-105 active:scale-95 transition" />
-      </a>
-    </li>
+          <li>
+            <a href="https://github.com/tessymugisha" target="_blank" rel="noopener"
+               aria-label="GitHub" title="GitHub"
+               class="inline-flex items-center p-2 focus:outline-none focus-visible:ring-2 focus-visible:ring-neutral-900">
+              <img :src="githubLogo" alt="GitHub"
+                   class="h-6 w-6 opacity-80 hover:opacity-100 hover:scale-105 active:scale-95 transition" />
+            </a>
+          </li>
 
-    <li>
-      <a href="https://medium.com/@mugishatessy" target="_blank" rel="noopener"
-         aria-label="Medium" title="Medium"
-         class="inline-flex items-center p-2 focus:outline-none focus-visible:ring-2 focus-visible:ring-neutral-900">
-        <img src="/logos/medium.png" alt="Medium"
-             class="h-6 w-6 opacity-80 hover:opacity-100 hover:scale-105 active:scale-95 transition" />
-      </a>
-    </li>
+          <li>
+            <a href="https://medium.com/@mugishatessy" target="_blank" rel="noopener"
+               aria-label="Medium" title="Medium"
+               class="inline-flex items-center p-2 focus:outline-none focus-visible:ring-2 focus-visible:ring-neutral-900">
+              <img :src="mediumLogo" alt="Medium"
+                   class="h-6 w-6 opacity-80 hover:opacity-100 hover:scale-105 active:scale-95 transition" />
+            </a>
+          </li>
 
-    <li>
-      <a href="https://www.youtube.com/@HeyTesssyy" target="_blank" rel="noopener"
-         aria-label="YouTube" title="YouTube"
-         class="inline-flex items-center p-2 focus:outline-none focus-visible:ring-2 focus-visible:ring-red-600">
-        <img src="/logos/youtube.png" alt="YouTube"
-             class="h-6 w-6 opacity-80 hover:opacity-100 hover:scale-105 active:scale-95 transition" />
-      </a>
-    </li>
+          <li>
+            <a href="https://www.youtube.com/@HeyTesssyy" target="_blank" rel="noopener"
+               aria-label="YouTube" title="YouTube"
+               class="inline-flex items-center p-2 focus:outline-none focus-visible:ring-2 focus-visible:ring-red-600">
+              <img :src="youtubeLogo" alt="YouTube"
+                   class="h-6 w-6 opacity-80 hover:opacity-100 hover:scale-105 active:scale-95 transition" />
+            </a>
+          </li>
 
-    <li>
-      <a href="mailto:mugishatessy@gmail.com" aria-label="Email" title="Email"
-         class="inline-flex items-center p-2 focus:outline-none focus-visible:ring-2 focus-visible:ring-emerald-600">
-        <img src="/logos/email.png" alt="Email"
-             class="h-6 w-6 opacity-80 hover:opacity-100 hover:scale-105 active:scale-95 transition" />
-      </a>
-    </li>
-  </ul>
-</section>
-
+          <li>
+            <a href="mailto:mugishatessy@gmail.com" aria-label="Email" title="Email"
+               class="inline-flex items-center p-2 focus:outline-none focus-visible:ring-2 focus-visible:ring-emerald-600">
+              <img :src="emailLogo" alt="Email"
+                   class="h-6 w-6 opacity-80 hover:opacity-100 hover:scale-105 active:scale-95 transition" />
+            </a>
+          </li>
+        </ul>
+      </section>
 
       <!-- Footer -->
       <footer class="mt-14 mb-2 text-sm text-neutral-600">
@@ -258,18 +256,24 @@
         </div>
       </div>
     </div>
-
   </div>
 </template>
 
 <script setup>
 import { ref, onMounted, onBeforeUnmount } from 'vue'
 
-
+/* Shots */
 import shotSwiftUI from '../assets/shots/ipad_nav_fix.jpg'
 import shotCampusBuddy from '../assets/shots/campus_buddy.jpg'
 import shotPOS from '../assets/shots/java_pos.jpg'
 import shotIntake from '../assets/shots/intake_ai.webp'
+
+/* Logos (place files in src/assets/logos/) */
+import linkedinLogo from '../assets/logos/linkedin.png'
+import githubLogo from '../assets/logos/github.png'
+import mediumLogo from '../assets/logos/medium.png'
+import youtubeLogo from '../assets/logos/youtube.png'
+import emailLogo from '../assets/logos/email.png'
 
 const projects = ref([
   {
@@ -338,8 +342,8 @@ const certs = ref([
     issuer: 'Google (Coursera)',
     status: 'Completed',
     blurb: 'Explored PM fundamentals to evaluate if PM is a fit for me.',
-    link: '', 
-    quick: true     
+    link: '',
+    quick: true
   },
   {
     id: 'att-tech-academy',
@@ -387,7 +391,7 @@ const activeProject = ref(null)
 const openProject = (p) => { activeProject.value = p }
 const closeProject = () => { activeProject.value = null }
 
-/* Medium handler */
+/* Medium handler (optional helper) */
 const MEDIUM_URL = 'https://medium.com/@mugishatessy'
 const goToMedium = () => {
   const writingSection = document.getElementById('writing')
