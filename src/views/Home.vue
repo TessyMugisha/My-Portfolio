@@ -259,6 +259,9 @@
 <script setup>
 import { ref, onMounted, onBeforeUnmount } from 'vue'
 
+import portrait from '../assets/shots/portrait.jpg' // rename the file to a simple name and move it to shots or images
+
+
 /* images */
 import portrait from '../assets/shots/portrait.jpg'
 import shotSwiftUI from '../assets/shots/ipad_nav_fix.jpg'
