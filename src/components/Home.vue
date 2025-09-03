@@ -33,6 +33,7 @@
       <ExperienceSection class="will-reveal" />
       <ProjectsSection class="will-reveal" />
       <SkillsSection class="will-reveal" />
+      <CertificationsSection/>
       <LinksSection class="will-reveal" />
       <footer class="mt-14 mb-2 text-sm text-white/90 will-reveal">
         <div class="text-center drop-shadow">
@@ -64,6 +65,7 @@ import SummarySection    from './SummarySection.vue'
 import ExperienceSection from './ExperienceSection.vue'
 import ProjectsSection   from './ProjectsSection.vue'
 import SkillsSection     from './SkillsSection.vue'
+import CertificationsSection from './CertificationsSection.vue'
 import LinksSection      from './LinksSection.vue'
 
 /* Back to top */
@@ -87,7 +89,7 @@ const sections = ref([
   { id:'experience',label:'Experience', icon:'💼' },
   { id:'projects',  label:'Projects',   icon:'📃' },
   { id:'skills',    label:'Skills',     icon:'💻' },
-  { id:'links',     label:'Links',      icon:'🔗' },
+  { id:'certifications',    label:'certs',     icon:'📋' },
 ])
 const activeSection = ref('summary')
 let spy
@@ -114,27 +116,34 @@ onBeforeUnmount(() => {
 <style>
 html { scroll-behavior: smooth; }
 
-/* Full-page fixed background (no blur) */
+/* Full-page fixed background */
 .site-bg {
   position: fixed;
   inset: 0;
   z-index: -10;
   background: url('/logos/tessyimage.jpg') center / cover no-repeat fixed;
+  pointer-events: none; /* don't block clicks */
 }
-/* Home.vue <style> — adjust the overlay strength to taste */
-.site-bg::after{
+
+/* Dark glassy overlay on top of the image */
+.site-bg::after {
+  content: "";
+  position: absolute;
+  inset: 0;
+  pointer-events: none;
   background:
     radial-gradient(1000px 650px at 12% 10%, rgba(0,0,0,.24), transparent 60%),
     linear-gradient(180deg, rgba(0,0,0,.20) 0%, rgba(0,0,0,.12) 55%, rgba(0,0,0,.08) 100%);
 }
 
 
-/* Reveal motion */
+
+/* Reveal motion
 .will-reveal { opacity: 0; transform: translateY(10px); }
 .reveal-in   { opacity: 1; transform: none; transition: opacity .5s ease, transform .5s ease; }
 @media (prefers-reduced-motion: reduce) {
   * { transition: none !important; animation-duration: 0.001ms !important; animation-iteration-count: 1 !important; }
   .will-reveal { opacity: 1 !important; transform: none !important; }
-}
+} */
 </style>
 
