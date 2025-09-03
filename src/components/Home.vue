@@ -4,18 +4,28 @@
     <div class="site-bg" aria-hidden="true"></div>
 
     <!-- Sticky bottom nav (scroll-spy) -->
-    <nav class="fixed left-1/2 -translate-x-1/2 bottom-6 z-[60] rounded-full bg-white/90
-                shadow-lg ring-1 ring-black/10">
-      <ul class="flex items-stretch divide-x divide-neutral-200">
-        <li v-for="s in sections" :key="s.id">
-          <a :href="'#' + s.id"
-             class="inline-flex items-center gap-2 px-4 py-2 text-sm font-medium transition rounded-full"
-             :class="activeSection === s.id ? 'bg-amber-100' : 'hover:bg-neutral-100'">
-            <span aria-hidden="true">{{ s.icon }}</span>{{ s.label }}
-          </a>
-        </li>
-      </ul>
-    </nav>
+<nav
+  class="fixed left-1/2 -translate-x-1/2 bottom-6 z-[60] px-2 py-2
+         rounded-full ring-1 ring-white/15 shadow-xl
+         bg-gradient-to-r from-black/30 via-black/25 to-black/30
+         backdrop-blur-md">
+  <ul class="flex items-center gap-1">
+    <li v-for="s in sections" :key="s.id">
+      <a
+        :href="'#' + s.id"
+        class="group flex items-center gap-2 px-4 py-2 rounded-full transition
+               font-semibold"
+        :class="activeSection === s.id
+          ? 'bg-white text-neutral-900 shadow-[0_4px_16px_rgba(0,0,0,.18)]'
+          : 'text-white/90 hover:text-white hover:bg-white/10'"
+      >
+        <span aria-hidden="true">{{ s.icon }}</span>
+        <span>{{ s.label }}</span>
+      </a>
+    </li>
+  </ul>
+</nav>
+
 
     <!-- Page sections -->
     <main class="relative z-10 mx-auto max-w-6xl px-6 py-10">
@@ -73,10 +83,10 @@ const installReveal = () => {
 
 /* Scroll-spy for bottom nav */
 const sections = ref([
-  { id:'summary',   label:'Summary',    icon:'✨' },
-  { id:'experience',label:'Experience', icon:'🧭' },
-  { id:'projects',  label:'Projects',   icon:'🧩' },
-  { id:'skills',    label:'Skills',     icon:'🧰' },
+  { id:'summary',   label:'Summary',    icon:'👤' },
+  { id:'experience',label:'Experience', icon:'💼' },
+  { id:'projects',  label:'Projects',   icon:'📃' },
+  { id:'skills',    label:'Skills',     icon:'💻' },
   { id:'links',     label:'Links',      icon:'🔗' },
 ])
 const activeSection = ref('summary')
@@ -111,15 +121,13 @@ html { scroll-behavior: smooth; }
   z-index: -10;
   background: url('/logos/tessyimage.jpg') center / cover no-repeat fixed;
 }
-.site-bg::after {
-  content: "";
-  position: absolute; inset: 0;
-  /* Subtle contrast for readability (set alphas to 0 for zero tint) */
+/* Home.vue <style> — adjust the overlay strength to taste */
+.site-bg::after{
   background:
-    radial-gradient(1100px 700px at 15% 10%, rgba(0,0,0,.08), transparent 60%),
-    linear-gradient(180deg, rgba(0,0,0,.10) 0%, rgba(0,0,0,.06) 55%, rgba(0,0,0,.03) 100%);
-  pointer-events: none;
+    radial-gradient(1000px 650px at 12% 10%, rgba(0,0,0,.24), transparent 60%),
+    linear-gradient(180deg, rgba(0,0,0,.20) 0%, rgba(0,0,0,.12) 55%, rgba(0,0,0,.08) 100%);
 }
+
 
 /* Reveal motion */
 .will-reveal { opacity: 0; transform: translateY(10px); }
